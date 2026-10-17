@@ -24,6 +24,9 @@ struct MenuBarCalendarView: View {
             legend
             Divider()
             todayLine
+            Divider()
+            PrayerTimesPanel()
+            Divider()
             UpcomingList(offset: monthOffset)
         }
         .padding(14)
