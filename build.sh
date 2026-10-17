@@ -27,8 +27,26 @@ xattr -dr com.apple.quarantine "$INSTALLED" 2>/dev/null || true
 "$LSREG" -f -R "$INSTALLED"
 
 echo "▸ Launch + refresh widget stack"
-open "$INSTALLED"
+open "$INSTALLED" 2>/dev/null || { sleep 2; open "$INSTALLED" 2>/dev/null || true; }
 sleep 2
 killall Dock NotificationCenter 2>/dev/null || true
 
-echo "✓ Done. Open Notification Center → Edit Widgets → search “Hijri”."
+# ── DMG ────────────────────────────────────────────────────────────────
+VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$INSTALLED/Contents/Info.plist")
+DMG="build/CalendarHijri-$VERSION.dmg"
+STAGE="build/dmg-stage"
+
+echo "▸ Package DMG ($DMG)"
+rm -rf "$STAGE"
+mkdir -p "$STAGE"
+cp -R "$INSTALLED" "$STAGE/"
+ln -s /Applications "$STAGE/Applications"
+rm -f "$DMG"
+hdiutil create -volname "CalendarHijri $VERSION" -srcfolder "$STAGE" \
+  -ov -format UDZO "$DMG" >/dev/null
+rm -rf "$STAGE"
+
+echo "✓ Done."
+echo "  App:     $INSTALLED"
+echo "  DMG:     $DMG"
+echo "  Menu bar: 🌙 icon → popup Hijri calendar"
