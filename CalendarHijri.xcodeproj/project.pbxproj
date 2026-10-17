@@ -10,8 +10,8 @@
 		18D5C5D0268BEC5164A82DC5 /* IslamicEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA43D4853C8C3D896206DAC0 /* IslamicEvents.swift */; };
 		2514A0EF0EBD33D98CB57829 /* HijriWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C876839CFD38E556A0D3E3B /* HijriWidget.swift */; };
 		33F1D69874CC6567CD9C51D9 /* HijriWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A25FDEA591D7E24687088303 /* HijriWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4133BBBA27F72F5D83B9C19D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834A61BD0865C9B8E60A8A37 /* ContentView.swift */; };
 		44838961970C412669649254 /* HijriDateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C94E93B6F26BF87823BD72 /* HijriDateInfo.swift */; };
+		507233879B7A55DEEDDAFA04 /* MenuBarCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45772335A151FE72B739 /* MenuBarCalendarView.swift */; };
 		6F17ED4E260E59172C6758BB /* HijriDateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C94E93B6F26BF87823BD72 /* HijriDateInfo.swift */; };
 		829660C1F4535426F8C325F9 /* HijriWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEFF484A87783CB0D9F8DDB /* HijriWidgetBundle.swift */; };
 		9850FB97F8B3837A808708E5 /* CalendarHijriApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2AC6E6E9A6AF1B364F831 /* CalendarHijriApp.swift */; };
@@ -45,10 +45,10 @@
 /* Begin PBXFileReference section */
 		20D2AC6E6E9A6AF1B364F831 /* CalendarHijriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHijriApp.swift; sourceTree = "<group>"; };
 		21924B1556BB7E1E0B05C0E2 /* CalendarHijri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarHijri.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBD45772335A151FE72B739 /* MenuBarCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCalendarView.swift; sourceTree = "<group>"; };
 		33DF08CDBC645123BC246FEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3CEFF484A87783CB0D9F8DDB /* HijriWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HijriWidgetBundle.swift; sourceTree = "<group>"; };
 		5C876839CFD38E556A0D3E3B /* HijriWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HijriWidget.swift; sourceTree = "<group>"; };
-		834A61BD0865C9B8E60A8A37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A25FDEA591D7E24687088303 /* HijriWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HijriWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C94E93B6F26BF87823BD72 /* HijriDateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HijriDateInfo.swift; sourceTree = "<group>"; };
 		CA43D4853C8C3D896206DAC0 /* IslamicEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslamicEvents.swift; sourceTree = "<group>"; };
@@ -69,8 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				20D2AC6E6E9A6AF1B364F831 /* CalendarHijriApp.swift */,
-				834A61BD0865C9B8E60A8A37 /* ContentView.swift */,
 				33DF08CDBC645123BC246FEA /* Info.plist */,
+				2CBD45772335A151FE72B739 /* MenuBarCalendarView.swift */,
 			);
 			path = CalendarHijri;
 			sourceTree = "<group>";
@@ -199,9 +199,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9850FB97F8B3837A808708E5 /* CalendarHijriApp.swift in Sources */,
-				4133BBBA27F72F5D83B9C19D /* ContentView.swift in Sources */,
 				6F17ED4E260E59172C6758BB /* HijriDateInfo.swift in Sources */,
 				CED7EAEE3780DE1044CE3192 /* IslamicEvents.swift in Sources */,
+				507233879B7A55DEEDDAFA04 /* MenuBarCalendarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

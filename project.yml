@@ -29,6 +29,7 @@ targets:
       properties:
         CFBundleDisplayName: Calendar Hijri
         LSMinimumSystemVersion: "14.0"
+        LSUIElement: true
         NSHumanReadableCopyright: ""
 
   HijriWidget:

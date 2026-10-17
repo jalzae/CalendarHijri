@@ -1,4 +1,33 @@
 import Foundation
+import SwiftUI
+
+/// One-line status for a Hijri day (event, fast rule or plain month name).
+struct DayStatusText {
+    let text: String
+    let color: Color
+
+    init(info: HijriDateInfo) {
+        if let event = IslamicEvents.event(onDay: info.day, monthIndex: info.monthIndex) {
+            text = "★ \(event.name)"
+            color = .orange
+            return
+        }
+        switch IslamicEvents.fastRule(day: info.day, monthIndex: info.monthIndex) {
+        case .sunnahFasting:
+            text = info.monthIndex == 0 ? "Sunnah fast" : "Ayyamul Bidh · Sunnah fast"
+            color = .green
+        case .obligatory:
+            text = "Ramadan · Obligatory fast"
+            color = .green
+        case .forbidden:
+            text = "Day of Tasyrik · No fasting"
+            color = .red
+        case .none:
+            text = info.monthNameArabic
+            color = .secondary
+        }
+    }
+}
 
 /// Fast-status for a single Hijri day.
 enum FastRule {
