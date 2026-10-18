@@ -15,12 +15,19 @@ final class PrayerModel: ObservableObject {
     private let settings: PrayerSettingsStore
     private var cancellables: Set<AnyCancellable> = []
     private var lastDay: Int = 0
+    private var firedAdhanKeys: Set<String> = []
 
     init(settings: PrayerSettingsStore) {
         self.settings = settings
 
         recompute()
         PrayerScheduler.reschedule(settings: settings)
+
+        // Warm the audio cache at launch so the adhan plays instantly at prayer
+        // time instead of waiting on a download.
+        if settings.adhanAudioEnabled, let reciter = AdhanCatalog.reciter(id: settings.adhanReciterID) {
+            Task { await AdhanPlayer.shared.ensureDownloaded(reciter) }
+        }
 
         // objectWillChange fires before the new value lands — the RunLoop hop
         // makes sure recompute() sees the updated settings.
@@ -41,10 +48,25 @@ final class PrayerModel: ObservableObject {
 
     private func tick() {
         refreshNext()
+        playAdhanIfDue()
         let day = Calendar.current.component(.day, from: Date())
         if day != lastDay {
             recompute()
             PrayerScheduler.reschedule(settings: settings)
+        }
+    }
+
+    /// Plays the downloaded adhan audio in-app when a prayer time is reached.
+    /// The 2-minute grace window covers tick gaps without replaying stale
+    /// adhan after the app sat closed through the prayer time.
+    private func playAdhanIfDue() {
+        guard settings.adhanAudioEnabled else { return }
+        let now = Date()
+        for time in todaysTimes where settings.adhanKinds.contains(time.kind) {
+            let key = "\(time.kind.rawValue).\(Int(time.date.timeIntervalSince1970))"
+            guard now >= time.date, now.timeIntervalSince(time.date) < 120 else { continue }
+            guard firedAdhanKeys.insert(key).inserted else { continue }
+            AdhanPlayer.shared.play(reciterID: settings.adhanReciterID)
         }
     }
 
@@ -56,6 +78,7 @@ final class PrayerModel: ObservableObject {
                                                  hanafiAsr: settings.hanafiAsr)
         lastDay = Calendar.current.component(.day, from: now)
         refreshNext()
+        playAdhanIfDue()
     }
 
     private func refreshNext() {

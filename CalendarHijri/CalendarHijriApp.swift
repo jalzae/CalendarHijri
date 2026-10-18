@@ -27,6 +27,9 @@ struct CalendarHijriApp: App {
     @StateObject private var model = MenuBarModel()
     @StateObject private var settings = PrayerSettingsStore.shared
     @StateObject private var prayer = PrayerModel(settings: .shared)
+    @StateObject private var amal = AmalYaumiStore.shared
+    @StateObject private var memos = DayMemoStore.shared
+    @StateObject private var adhanPlayer = AdhanPlayer.shared
 
     init() {
         UNUserNotificationCenter.current().delegate = PrayerNotificationDelegate.shared
@@ -37,6 +40,8 @@ struct CalendarHijriApp: App {
             MenuBarCalendarView()
                 .environmentObject(settings)
                 .environmentObject(prayer)
+                .environmentObject(amal)
+                .environmentObject(memos)
                 .frame(width: 330)
         } label: {
             HStack(spacing: 3) {
@@ -50,9 +55,16 @@ struct CalendarHijriApp: App {
         }
         .menuBarExtraStyle(.window)
 
+        Window("Amal Yaumi", id: "amal-yaumi") {
+            AmalYaumiManagerView()
+                .environmentObject(amal)
+        }
+        .windowResizability(.contentSize)
+
         Settings {
             SettingsView()
                 .environmentObject(settings)
+                .environmentObject(adhanPlayer)
         }
     }
 }

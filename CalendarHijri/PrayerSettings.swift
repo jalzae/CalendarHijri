@@ -13,7 +13,10 @@ final class PrayerSettingsStore: ObservableObject {
         static let hanafiAsr = "prayer.hanafiAsr"
         static let notificationsEnabled = "prayer.notificationsEnabled"
         static let adhanKinds = "prayer.adhanKinds"
+        static let adhanAudioEnabled = "prayer.adhanAudioEnabled"
+        static let adhanReciterID = "prayer.adhanReciterID"
         static let showInMenuBar = "prayer.showInMenuBar"
+        static let showGregorianDates = "calendar.showGregorianDates"
     }
 
     @Published var city: IndonesianCity {
@@ -33,8 +36,17 @@ final class PrayerSettingsStore: ObservableObject {
             UserDefaults.standard.set(adhanKinds.map(\.rawValue).sorted(), forKey: Key.adhanKinds)
         }
     }
+    @Published var adhanAudioEnabled: Bool {
+        didSet { UserDefaults.standard.set(adhanAudioEnabled, forKey: Key.adhanAudioEnabled) }
+    }
+    @Published var adhanReciterID: String {
+        didSet { UserDefaults.standard.set(adhanReciterID, forKey: Key.adhanReciterID) }
+    }
     @Published var showInMenuBar: Bool {
         didSet { UserDefaults.standard.set(showInMenuBar, forKey: Key.showInMenuBar) }
+    }
+    @Published var showGregorianDates: Bool {
+        didSet { UserDefaults.standard.set(showGregorianDates, forKey: Key.showGregorianDates) }
     }
 
     var location: PrayerLocation {
@@ -54,6 +66,9 @@ final class PrayerSettingsStore: ObservableObject {
         let storedKinds = defaults.stringArray(forKey: Key.adhanKinds)
             ?? PrayerKind.adhan.map(\.rawValue)
         adhanKinds = Set(storedKinds.compactMap(PrayerKind.init(rawValue:)))
+        adhanAudioEnabled = defaults.object(forKey: Key.adhanAudioEnabled) as? Bool ?? true
+        adhanReciterID = defaults.string(forKey: Key.adhanReciterID) ?? AdhanCatalog.defaultReciterID
         showInMenuBar = defaults.object(forKey: Key.showInMenuBar) as? Bool ?? true
+        showGregorianDates = defaults.object(forKey: Key.showGregorianDates) as? Bool ?? true
     }
 }
